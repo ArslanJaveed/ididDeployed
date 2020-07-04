@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Your Employees Data</h1>
+
+            <% if (tasks.length === 0) { %>
+                <p>No one checked in or checked out yet</p>
+            <% } else { %>
+                <div class="row">
+                    <% tasks.forEach(function(task){ %>
+                    <div class="col-4">
+                        <p>Employee Name: <%= task.employeeName %></p>
+                        <% task.task.map(info =>{ %>
+                            <p>Project Name: <%=info.projectName %></p>
+                            <p>Task: <%= info.details %></p>
+                       <% }) %>
+                       <% if (task.checkIn) { %>
+                        <p>Check In Time: <%= task.checkInTime %></p>
+                       <% } else { %>
+                        <p>Check Out Time: <%= task.checkOutTime %></p>
+                       <% } %>
+                       
+                    </div>
+                    <hr>
+                    <% }) %> 
+                </div>
+           <% } %>
+            
+            <h5 class="text-muted">This is an auto-generated email do not reply to this email. Thanks!</h5>
+            
+        </div>
+    </body>
+</html>
+
+
+
+    
+
