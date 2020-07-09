@@ -132,7 +132,7 @@ export default class CreateStudent extends Component {
       
     };
     axios
-      .post("http://localhost:4000/students/create-student", studentObject)
+      .post("http://ec2-18-224-109-233.us-east-2.compute.amazonaws.com:8080/students/create-student", studentObject)
       .then(res => console.log(res.data));
 
     console.log(studentObject);

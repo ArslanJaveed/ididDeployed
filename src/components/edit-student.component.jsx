@@ -23,7 +23,7 @@ export default class EditStudent extends Component {
     if(this.props.match && this.props.match.params.id){
       axios
       .get(
-        "http://localhost:4000/students/edit-student/" +
+        "http://http://ec2-18-224-109-233.us-east-2.compute.amazonaws.com:8080/students/edit-student/" +
           this.props.match.parameter.id
       )
       .then(res => {
@@ -60,7 +60,7 @@ export default class EditStudent extends Component {
     if(this.props.match && this.props.match.params.id){
       axios
       .put(
-        "http://localhost:4000/students/update-student/" +
+        "http://ec2-18-224-109-233.us-east-2.compute.amazonaws.com:8080/students/update-student/" +
           this.props.match.params.id,
         studentObject
       )
