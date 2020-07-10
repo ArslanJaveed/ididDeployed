@@ -13,7 +13,7 @@ import CreateStudent from "./components/create-student.component";
 import EditStudent from "./components/edit-student.component";
 import StudentList from "./components/student-list.component";
 import Signin from "./components/sign-in";
-
+import "./Styles/client.css"
 
 const ProtectedRoute = ({ component, currentUser }) => {
   const Component = component;
