@@ -6,6 +6,7 @@ import Alert from "react-bootstrap/Alert";
 import {UserConsumer} from "./userContext";
 import mainPg from "../Images/mainPg.png";
 import axios from "axios";
+import "../Styles/client.css"
 
 export default class CreateStudent extends Component {
   constructor(props) {
@@ -59,7 +60,8 @@ export default class CreateStudent extends Component {
               <input type="text" className="form-control" style={{borderTop:"0px",borderLeft:"0px",borderRight:"0px"}} 
               placeholder="Project Name" name="projectName" value={el.projectName ||''} 
               onChange={this.handleChange.bind(this, i)} required/>
-              <FontAwesomeIcon icon={faPlusCircle} pull="right" onClick={this.addClick.bind(this)}/>
+              <FontAwesomeIcon icon={faPlusCircle} pull="right" id="icon" onClick={this.addClick.bind(this)}/>
+              <FontAwesomeIcon icon={faMinusCircle} pull="right" id="icon" onClick={this.removeClick.bind(this, i)}/>
             </div>
           </div>
         </div>          
@@ -81,6 +83,7 @@ export default class CreateStudent extends Component {
               placeholder="Project Name" name="projectName" value={el.projectName ||''} 
               onChange={this.handleChange.bind(this, i)} required/>
               <FontAwesomeIcon icon={faPlusCircle} pull="right" onClick={this.addClick.bind(this)}/>
+              <FontAwesomeIcon icon={faMinusCircle} pull="right" onClick={this.removeClick.bind(this, i)}/>
             </div>
           </div>
           {/* <input type='button' value='remove' onClick={this.removeClick.bind(this, i)}/> */}
@@ -153,10 +156,10 @@ export default class CreateStudent extends Component {
 
         
             <div className="row" style={{height:"585px"}}>
-                <div className="col-6" >
+                <div className="col-sm-12 col-md-6 col-lg-6" >
                   <Image src={mainPg} fluid />
                 </div>
-                <div className="col-6" >
+                <div className="col-sm-12 col-md-6 col-lg-6" >
                     {/* <div className="row" style={{paddingTop:"100px"}}> */}
                       <UserConsumer>
                         { username => {
