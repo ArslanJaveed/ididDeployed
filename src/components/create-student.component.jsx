@@ -61,7 +61,7 @@ export default class CreateStudent extends Component {
               placeholder="Project Name" name="projectName" value={el.projectName ||''} 
               onChange={this.handleChange.bind(this, i)} required/>
               <FontAwesomeIcon icon={faPlusCircle} pull="right" id="icon" onClick={this.addClick.bind(this)}/>
-              <FontAwesomeIcon icon={faMinusCircle} pull="right" id="icon" onClick={this.removeClick.bind(this, i)}/>
+              {/* <FontAwesomeIcon icon={faMinusCircle} pull="right" id="icon" onClick={this.removeClick.bind(this, i)}/> */}
             </div>
           </div>
         </div>          
@@ -83,7 +83,7 @@ export default class CreateStudent extends Component {
               placeholder="Project Name" name="projectName" value={el.projectName ||''} 
               onChange={this.handleChange.bind(this, i)} required/>
               <FontAwesomeIcon icon={faPlusCircle} pull="right" onClick={this.addClick.bind(this)}/>
-              <FontAwesomeIcon icon={faMinusCircle} pull="right" onClick={this.removeClick.bind(this, i)}/>
+              {/* <FontAwesomeIcon icon={faMinusCircle} pull="right" onClick={this.removeClick.bind(this, i)}/> */}
             </div>
           </div>
           {/* <input type='button' value='remove' onClick={this.removeClick.bind(this, i)}/> */}
