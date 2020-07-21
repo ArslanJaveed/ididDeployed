@@ -15,7 +15,7 @@ export default class StudentList extends Component {
 
   componentDidMount() {
     axios
-      .get("http://ec2-18-224-109-233.us-east-2.compute.amazonaws.com:8080/students/"+ this.state.username)
+      .get("https://www.idid.today/students/"+ this.state.username)
       .then(res => {
         this.setState({
           tasks: res.data
