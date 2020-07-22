@@ -13,7 +13,8 @@ import CreateStudent from "./components/create-student.component";
 import EditStudent from "./components/edit-student.component";
 import StudentList from "./components/student-list.component";
 import Signin from "./components/sign-in";
-import "./Styles/client.css"
+import "./Styles/client.css";
+import AdminPanel from "./components/admin-panel.component";
 
 const ProtectedRoute = ({ component, currentUser }) => {
   const Component = component;
@@ -68,7 +69,7 @@ class App extends Component {
       if (userAuth) {
         this.setState({ currentUser: userAuth, regEx: finalRegEx, username: userAuth.displayName });
         console.log("In user state check function", this.state.username);
-        this.props.history.push("/create-student");
+        this.props.history.push("/add-task");
       }
     });
   };
@@ -86,7 +87,7 @@ class App extends Component {
           <Navbar bg="dark" variant="dark">
             <Container>
               <Navbar.Brand>
-                <Link to="/create-student" className="nav-link" style={{color:"white"}}>
+                <Link to="/add-task" className="nav-link" style={{color:"white"}}>
                   iDid
                 </Link>
               </Navbar.Brand>
@@ -95,8 +96,13 @@ class App extends Component {
 
                 <Nav>
                   {this.state.currentUser && (
-                    <Link to="/student-list" className="nav-link btn btn-info" style={{color:"White",marginRight:"10px"}}>
+                    <Link to="/task-list" className="nav-link btn btn-info" style={{color:"White",marginRight:"10px"}}>
                     Task List
+                  </Link>
+                  )}
+                  {this.state.currentUser && this.state.username === "Faizan Saleem" && (
+                    <Link to="/admin" className="nav-link btn btn-info" style={{color:"White",marginRight:"10px"}}>
+                    Admin
                   </Link>
                   )}
                   
@@ -126,7 +132,7 @@ class App extends Component {
                     <Signin signInGoogle={this.handleSignin} />
                   </Route>
 
-                  <Route path="/create-student">
+                  <Route path="/add-task">
                     <ProtectedRoute
                       component={CreateStudent}
                       currentUser={this.state.currentUser}
@@ -140,9 +146,16 @@ class App extends Component {
                     />
                   </Route>
                   
-                  <Route path="/student-list">
+                  <Route path="/task-list">
                     <ProtectedRoute
                       component={StudentList}
+                      currentUser={this.state.currentUser}
+                    />
+                  </Route>
+
+                  <Route path="/admin">
+                    <ProtectedRoute
+                      component={AdminPanel}
                       currentUser={this.state.currentUser}
                     />
                   </Route>

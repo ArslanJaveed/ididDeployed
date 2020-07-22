@@ -12,14 +12,19 @@ let taskSchema = require("./models/Student");
 
 // Express Route
 const studentRoute = require("../backend/routes/student.routes");
+const adminRoute = require("../backend/routes/adminRoutes");
 
 let date_ob = new Date();
 
 let date = date_ob.getDate();
 let month = ((date_ob.getMonth() + 1));
 let year = date_ob.getFullYear();
-
-let fulldate = month + "/" + date + "/" + + year;
+let fulldate;
+if (month < 10) {
+    fulldate = date + "/0" + month + "/" + year;
+} else {
+  fulldate = date + "/" + month + "/" + year;
+}
 console.log(fulldate);
 
 // Connecting mongoDB Database
@@ -53,8 +58,8 @@ let transporter = nodemailer.createTransport({
 
   service: "gmail",
   auth: {
-    user: "ididapp383@gmail.com",
-    pass:"Brandpa383"
+    user: "ididtodayofficial@gmail.com",
+    pass:"Brandpa\383"
   }
 });
 
@@ -140,11 +145,11 @@ cron.schedule("0 22 * * *",function(){
 
 });
 
-
+app.use(adminRoute);
 app.use("/students", studentRoute);
 
 // PORT
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 8080;
 const server = app.listen(port, () => {
   console.log("Connected to port " + port);
 });

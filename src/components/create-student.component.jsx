@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import Image from "react-bootstrap/Image";
-import Alert from "react-bootstrap/Alert";
 import {UserConsumer} from "./userContext";
 import mainPg from "../Images/mainPg.png";
 import axios from "axios";
@@ -23,7 +22,6 @@ export default class CreateStudent extends Component {
       employeeName:"",
       checkIn: false,
       checkOut: false,
-      date:"",
       chckInTime:"",
       chckOutTime:"",
     };
@@ -53,13 +51,13 @@ export default class CreateStudent extends Component {
               <label>I will do</label>
               <input type="text" className="form-control" style={{borderTop:"0px",borderLeft:"0px",borderRight:"0px"}} 
               placeholder="Your Task" name="details" value={el.details ||''} 
-              onChange={this.handleChange.bind(this, i)} required/>
+              onChange={this.handleChange.bind(this, i)} required={true}/>
             </div>
             <div className="form-group form-inline">
               <label>for</label>
               <input type="text" className="form-control" style={{borderTop:"0px",borderLeft:"0px",borderRight:"0px"}} 
               placeholder="Project Name" name="projectName" value={el.projectName ||''} 
-              onChange={this.handleChange.bind(this, i)} required/>
+              onChange={this.handleChange.bind(this, i)} required={true}/>
               <FontAwesomeIcon icon={faPlusCircle} pull="right" id="icon" onClick={this.addClick.bind(this)}/>
               {/* <FontAwesomeIcon icon={faMinusCircle} pull="right" id="icon" onClick={this.removeClick.bind(this, i)}/> */}
             </div>
@@ -75,13 +73,13 @@ export default class CreateStudent extends Component {
               <label>I did </label>
               <input type="text" className="form-control" style={{borderTop:"0px",borderLeft:"0px",borderRight:"0px"}} 
               placeholder="Your Task" name="details" value={el.details ||''} 
-              onChange={this.handleChange.bind(this, i)} required/>
+              onChange={this.handleChange.bind(this, i)} required={true}/>
             </div>
             <div className="form-group form-inline">
               <label>for </label>
               <input type="text" className="form-control" style={{borderTop:"0px",borderLeft:"0px",borderRight:"0px"}} 
               placeholder="Project Name" name="projectName" value={el.projectName ||''} 
-              onChange={this.handleChange.bind(this, i)} required/>
+              onChange={this.handleChange.bind(this, i)} required={true}/>
               <FontAwesomeIcon icon={faPlusCircle} pull="right" onClick={this.addClick.bind(this)}/>
               {/* <FontAwesomeIcon icon={faMinusCircle} pull="right" onClick={this.removeClick.bind(this, i)}/> */}
             </div>
@@ -98,15 +96,13 @@ export default class CreateStudent extends Component {
 
   onChangeCheckType(e) {
     if(e.target.value === "Check In") {
-      var currentDate = new Date().toLocaleDateString();
       var currentTime = new Date().toLocaleTimeString();
-      this.setState({checkIn: true, date: currentDate, chckInTime: currentTime});
+      this.setState({checkIn: true, chckInTime: currentTime});
     } 
     
     if(e.target.value === "Check Out") {
-      currentDate = new Date().toLocaleDateString();
       currentTime = new Date().toLocaleTimeString();
-      this.setState({checkOut:true, checkIn:false, date: currentDate, chckOutTime: currentTime});
+      this.setState({checkOut:true, checkIn:false, chckOutTime: currentTime});
     }
     
     if(e.target.value === "Choose") {
@@ -122,23 +118,33 @@ export default class CreateStudent extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-
-    const studentObject = {
-      task: this.state.task,
-      employeeName: this.state.employeeName,
-      checkIn: this.state.checkIn,
-      checkOut: this.state.checkOut,
-      created: this.state.date,
-      checkInTime: this.state.chckInTime,
-      checkOutTime: this.state.checkOutTime,
-
-      
-    };
-    axios
-      .post("https://www.idid.today/students/create-student", studentObject)
-      .then(res => console.log(res.data));
-
-    console.log(studentObject);
+    let isValid = true;
+    
+    for(var i=0;i<this.state.task.length;i++){
+      if(this.state.task[i].projectName === "" || this.state.task.details === ""){
+        isValid = false;
+      }
+    }
+    if(isValid){
+      const studentObject = {
+        task: this.state.task,
+        employeeName: this.state.employeeName,
+        checkIn: this.state.checkIn,
+        checkOut: this.state.checkOut,
+        checkInTime: this.state.chckInTime,
+        checkOutTime: this.state.chckOutTime,
+  
+        
+      };
+      axios
+        .post("https://www.idid.today/students/create-student", studentObject)
+        .then(res => console.log(res.data));
+  
+      console.log(studentObject);
+      alert("Task Submitted Successfully!");
+    } else if(!isValid){
+      alert("Please fill all fields before submitting. Thanks!");
+    }
 
     this.setState({ 
       task:[{
@@ -147,7 +153,6 @@ export default class CreateStudent extends Component {
       }]
     });
 
-    return <Alert variant="success">Task Submitted</Alert>
   }
 
   render() {
