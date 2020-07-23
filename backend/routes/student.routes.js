@@ -5,7 +5,12 @@ let mongoose = require("mongoose"),
 // Student Model
 let taskSchema = require("../models/Student");
 
-let date_ob = new Date();
+
+
+// CREATE Student
+router.route("/create-student").post((req, res, next) => {
+
+  let date_ob = new Date();
 
 let date = date_ob.getDate();
 let month = ((date_ob.getMonth() + 1));
@@ -17,8 +22,7 @@ if (month < 10) {
   fulldate = date + "/" + month + "/" + year;
 }
 
-// CREATE Student
-router.route("/create-student").post((req, res, next) => {
+
   const task = {
     task: req.body.task,
     employeeName: req.body.employeeName,

@@ -100,7 +100,7 @@ class App extends Component {
                     Task List
                   </Link>
                   )}
-                  {this.state.currentUser && this.state.username === "Faizan Saleem" && (
+                  {this.state.currentUser && this.state.username === "Muhammad Arslan Javed" && (
                     <Link to="/admin" className="nav-link btn btn-info" style={{color:"White",marginRight:"10px"}}>
                     Admin
                   </Link>

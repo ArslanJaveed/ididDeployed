@@ -14,18 +14,7 @@ let taskSchema = require("./models/Student");
 const studentRoute = require("../backend/routes/student.routes");
 const adminRoute = require("../backend/routes/adminRoutes");
 
-let date_ob = new Date();
 
-let date = date_ob.getDate();
-let month = ((date_ob.getMonth() + 1));
-let year = date_ob.getFullYear();
-let fulldate;
-if (month < 10) {
-    fulldate = date + "/0" + month + "/" + year;
-} else {
-  fulldate = date + "/" + month + "/" + year;
-}
-console.log(fulldate);
 
 // Connecting mongoDB Database
 mongoose.Promise = global.Promise;
@@ -59,15 +48,28 @@ let transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "ididtodayofficial@gmail.com",
-    pass:"Brandpa\383"
+    pass:"Brandpa383"
   }
 });
 
 
 
 // cron job configured to send checkin email at 1pm everyday
-cron.schedule("0 13 * * *",function(){
+cron.schedule("0 8 * * *",function(){
   console.log("running cron job");
+
+  let date_ob = new Date();
+
+let date = date_ob.getDate();
+let month = ((date_ob.getMonth() + 1));
+let year = date_ob.getFullYear();
+let fulldate;
+if (month < 10) {
+    fulldate = date + "/0" + month + "/" + year;
+} else {
+  fulldate = date + "/" + month + "/" + year;
+}
+console.log(fulldate);
 
   taskSchema.find({checkIn: true, created: fulldate},function(err,taskData){
     if(err){
@@ -86,8 +88,8 @@ cron.schedule("0 13 * * *",function(){
       } else {
         var mailOptions = {
           from:"IDID Application",
-          to:"ididtoday@brandpa.pk",
-          subject:"Employee Data",
+          to:"faizansaleem790@gmail.com",
+          subject:"iDid - Check In - " + fulldate,
           html: data
         };
     
@@ -109,6 +111,19 @@ cron.schedule("0 13 * * *",function(){
 cron.schedule("0 22 * * *",function(){
   console.log("running cron job");
 
+  let date_ob = new Date();
+
+let date = date_ob.getDate();
+let month = ((date_ob.getMonth() + 1));
+let year = date_ob.getFullYear();
+let fulldate;
+if (month < 10) {
+    fulldate = date + "/0" + month + "/" + year;
+} else {
+  fulldate = date + "/" + month + "/" + year;
+}
+console.log(fulldate);
+
   taskSchema.find({checkOut: true, created: fulldate},function(err,taskData){
     if(err){
       console.log(err);
@@ -127,7 +142,7 @@ cron.schedule("0 22 * * *",function(){
         var mailOptions = {
           from:"IDID Application",
           to:"ididtoday@brandpa.pk",
-          subject:"Employee Data",
+          subject:"iDid - Check Out - " + fulldate,
           html: data
         };
     
